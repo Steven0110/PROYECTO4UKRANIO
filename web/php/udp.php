@@ -8,9 +8,10 @@ $micro_beat_period = 100;
 $filename     = 'prueba.txt';
 $message     = 'Hola Lau :)';
 $filename = $_FILES["file"]["name"];
+$filename = "../res/".$filename;
 $message = file_get_contents($_FILES["file"]["tmp_name"]);
 if ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) {
-  socket_sendto($socket, "../res/".$filename, strlen($filename), 0, $server_ip, $server_port);
+  socket_sendto($socket, $filename, strlen($filename), 0, $server_ip, $server_port);
   usleep($micro_beat_period );
   socket_sendto($socket, $message, strlen($message), 0, $server_ip, $server_port);
 

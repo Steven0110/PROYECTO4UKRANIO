@@ -11,10 +11,12 @@ $micro_beat_period = 100;
 if ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) {
     socket_sendto($socket, $palabra, strlen($palabra), 0, $server_ip, $server_port);
     while( 1 ){
-		$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
-		socket_bind($socket, '127.0.0.1', 7200);
-		$from = '';
-		$port = 0;
+  		if(socket_recv ( $sock , $reply , 1024 , MSG_WAITALL ) === FALSE){
+        $errorcode = socket_last_error();
+        $errormsg = socket_strerror($errorcode);
+        die("Could not receive data: [$errorcode] $errormsg \n");
+      }
+      echo $reply;
     }
   //Respuesta JSON
   echo "{ \"status\" : \"1\"}";
