@@ -34,67 +34,68 @@ $servers = [
 $server_port = 7201;
 $beat_period = 5;
 $micro_beat_period = 100;
-
-$socket = null;
 if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
   echo "{ \"status\" : \"-1\"}";
   exit(-1);
-}
-    //Obtiene las PCs que están activas
-$code = "2";
-$pc_no = 0;
-socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array("sec"=>3,"usec"=>0));
-foreach( $servers as $server ){
-  //Pregunta a cada servidor si está encendido:
-  socket_sendto($socket, $code, strlen($code), 0, $server->ip, $server_port);
-  //Recibe su respuesta
-  if(socket_recv ( $sock , $reply , 1024 , MSG_WAITALL ) === FALSE){
-    $server->status = 0;
-  }else{
-    $pc_no++;
-    $server->status = 1;
-  }
-}
-
-  //Pregunta por la cantidad total de archivos server por server hasta que uno le responda
-$code = "3";
-$files = 0;
-foreach( $servers as $server ){
-  socket_sendto($socket, $code, strlen($code), 0, $server->ip, $server_port);
-  //Recibe su respuesta
-  if(socket_recv ( $sock , $reply , 1024 , MSG_WAITALL ) === FALSE){
-  }else{
-    $files = intval($reply);
-  }
-}
-
-//Define los rangos que le tocan a cada computadora
-$files_per_pc = floor( $files / $pc_no );
-foreach( $servers as $server ){
-  if($server->status == 1 ){
-    $server->min = $count * $files_per_pc;
-    $server->max = $count * $files_per_pc + $files_per_pc - 1;
-  }
-}
-//Le envía sus rangos a cada server activo y la palabra
-foreach($servers as $server ){
-  if($server->status == 1 ){
-    $min = "".$server->min
-    $max = "".$server->max
-    socket_sendto($socket, $min, strlen($min), 0, $server_ip, $server_port);
-    usleep($micro_beat_period);
-    socket_sendto($socket, $max, strlen($max), 0, $server_ip, $server_port);
-    usleep($micro_beat_period);
-    socket_sendto($socket, $palabra, strlen($palabra), 0, $server_ip, $server_port);
-    usleep($micro_beat_period);
-  }
-}
-//Espera hasta recibir la respuesta de los servers
-foreach($servers as $server){
-  if($server->status == 1 ){
-    if(socket_recv ( $sock , $reply , 1024 , MSG_WAITALL ) === FALSE){
+}else{
+      //Obtiene las PCs que están activas - SERVICIO EN EL PUERTO 7202
+  $code = "2";
+  $pc_no = 0;
+  socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array("sec"=>2,"usec"=>0));
+  foreach( $servers as $server ){
+    var_dump($server);
+    //Pregunta a cada servidor si está encendido:
+    socket_sendto($socket, $code, strlen($code), 0, $server["ip"], 7202);
+    //Recibe su respuesta
+    if(socket_recv ( $socket , $reply , 1024 , MSG_WAITALL ) === FALSE){
+      $server["status"] = 0;
     }else{
-      echo $reply."<br/>";
+      $pc_no++;
+      $server["status"] = 1;
+    }
+  }
+
+    //Pregunta por la cantidad total de archivos server por server hasta que uno le responda
+  //  SERVICIO EN EL PUERTO 7203
+  $code = "3";
+  $files = 0;
+  foreach( $servers as $server ){
+    socket_sendto($socket, $code, strlen($code), 0, $server["ip"], 7203);
+    //Recibe su respuesta
+    if(socket_recv ( $socket , $reply , 1024 , MSG_WAITALL ) === FALSE){
+    }else{
+      $files = intval($reply);
+    }
+  }
+
+  //Define los rangos que le tocan a cada computadora
+  $files_per_pc = floor( $files / $pc_no );
+  foreach( $servers as $server ){
+    if($server["status"]  == 1 ){
+      $server["min"]  = $count * $files_per_pc;
+      $server["max"]  = $count * $files_per_pc + $files_per_pc - 1;
+    }
+  }
+  //Le envía sus rangos a cada server activo y la palabra - SERVICIO EN EL PUERTO 7201
+  foreach($servers as $server ){
+    if($server["status"] == 1 ){
+      $min = "".$server["min"] ;
+      $max = "".$server["max"] ;
+      socket_sendto($socket, $min, strlen($min), 0, $server["ip"], $server_port);
+      usleep($micro_beat_period);
+      socket_sendto($socket, $max, strlen($max), 0, $server["ip"], $server_port);
+      usleep($micro_beat_period);
+      socket_sendto($socket, $palabra, strlen($palabra), 0, $server["ip"], $server_port);
+      usleep($micro_beat_period);
+    }
+  }
+  //Espera hasta recibir la respuesta de los servers
+  foreach($servers as $server){
+    if($server["status"]  == 1 ){
+      if(socket_recv ( $socket , $reply , 1024 , MSG_WAITALL ) === FALSE){
+      }else{
+        echo $reply."<br/>";
+      }
     }
   }
 }
