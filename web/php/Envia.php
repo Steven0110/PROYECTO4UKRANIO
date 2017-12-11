@@ -53,10 +53,9 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
       $server["status"] = 0;
     }else{
       $pc_no++;
-
+      echo "Respondió ".$server["name"]."\n";
       $server["status"] = 1;
     }
-    var_dump($server);
   }
 
     //Pregunta por la cantidad total de archivos server por server hasta que uno le responda
@@ -71,7 +70,7 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
       $files = intval($reply);
     }
   }
-
+  echo "Hay ".$files." archivos\n";
   //Define los rangos que le tocan a cada computadora
   $count = 0;
   $files_per_pc = floor( $files / $pc_no );
