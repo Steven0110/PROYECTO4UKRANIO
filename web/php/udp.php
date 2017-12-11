@@ -10,11 +10,13 @@ $message     = 'Hola Lau :)';
 $filename = $_FILES["file"]["name"];
 $message = file_get_contents($_FILES["file"]["tmp_name"]);
 if ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) {
-  socket_sendto($socket, $filename, strlen($message), 0, $server_ip, $server_port);
+  socket_sendto($socket, $filename, strlen($filename), 0, $server_ip, $server_port);
   usleep($micro_beat_period );
   socket_sendto($socket, $message, strlen($message), 0, $server_ip, $server_port);
-  print("Mensaje enviado...\n");
+
+  //Respuesta JSON
+  echo "{ \"status\" : \"1\"}";
 } else {
-  print("can't create socket\n");
+  echo "{ \"status\" : \"-1\"}";
 }
 ?>
