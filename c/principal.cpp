@@ -9,21 +9,21 @@ int main()
   int puerto = 7201;
   SocketDatagrama s(puerto);
 
-  char* nombreArchivo;
   //char* extension=".txt";
 
-  char* datos;
 
   PaqueteDatagrama r(1024);
   //ofstream fs("archivo.txt");
 
   while(true){
-	/*
-	s.recibe(r);
+  /*
+  s.recibe(r);
     cout << "Datos recibidos: " << r.obtieneDatos() << endl;
     fs << r.obtieneDatos();
     fs.close();*/
 
+    char* datos;
+    char* nombreArchivo;
     s.recibe(r);
     nombreArchivo = (char *)malloc(1024);
     nombreArchivo= (char*)r.obtieneDatos();
