@@ -37,6 +37,7 @@ int main()
     string st(p.obtieneDireccion());
     PaqueteDatagrama r((char*)&k, 8,st, p.obtienePuerto());
     s.envia( r );
+    k=0;
     }else continue;
   }
 }
