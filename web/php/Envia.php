@@ -68,8 +68,9 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
   foreach( $servers as $server ){
     socket_sendto($socket, $code, strlen($code), 0, $server["ip"], 7203);
     //Recibe su respuesta
-    if(socket_recv ( $socket , $reply , 1 , MSG_WAITALL ) === FALSE){
+    if(socket_recv ( $socket , $reply , 2 , MSG_WAITALL ) === FALSE){
     }else{
+      var_dump($reply);
       $files = intval($reply);
       break;
     }
