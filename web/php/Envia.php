@@ -44,7 +44,7 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
       //Obtiene las PCs que están activas - SERVICIO EN EL PUERTO 7202
   $code = "2";
   $pc_no = 0;
-  socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array("sec"=>2,"usec"=>0));
+  socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array("sec"=>1,"usec"=>0));
   foreach( $servers as $server ){
     //Pregunta a cada servidor si está encendido:
     socket_sendto($socket, $code, strlen($code), 0, $server["ip"], 7202);
@@ -65,8 +65,9 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
   foreach( $servers as $server ){
     socket_sendto($socket, $code, strlen($code), 0, $server["ip"], 7203);
     //Recibe su respuesta
-    if(socket_recv ( $socket , $reply , 1024 , MSG_WAITALL ) === FALSE){
+    if(socket_recv ( $socket , $reply , 1 , MSG_WAITALL ) === FALSE){
     }else{
+      var_dump( $reply );
       $files = intval($reply);
     }
   }

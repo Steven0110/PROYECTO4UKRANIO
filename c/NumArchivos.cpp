@@ -35,7 +35,10 @@ int main()
       printf("%d\n", k);
     //char msg[0] = k;
     string st(p.obtieneDireccion());
-    PaqueteDatagrama r((char*)&k, 8,st, p.obtienePuerto());
+
+    char str[10];
+    sprintf(str, "%d", k);
+    PaqueteDatagrama r(str, sizeof( str ),st, p.obtienePuerto());
     s.envia( r );
     k=0;
     }else continue;
