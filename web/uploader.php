@@ -1,5 +1,6 @@
 <?php
-  $uploadedfileload="true";
+
+  /*$uploadedfileload="true";
   $uploadedfile_size=$_FILES[uploadedfile][size];
   echo $_FILES['uploadedfile'][name];
   if ($_FILES['uploadedfile']['size']>1000000){
@@ -20,7 +21,7 @@
     }
   }else{
     echo $msg;
-  }
+  }*/
 /*if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $add)){
     echo"se movio correctamente";
   }else {
