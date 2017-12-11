@@ -12,7 +12,6 @@ int main()
   //char* extension=".txt";
 
 
-  PaqueteDatagrama r(1024);
   //ofstream fs("archivo.txt");
 
   while(true){
@@ -24,6 +23,7 @@ int main()
 
     char* datos;
     char* nombreArchivo;
+    PaqueteDatagrama r(1024);
     s.recibe(r);
     nombreArchivo = (char *)malloc(1024);
     nombreArchivo= (char*)r.obtieneDatos();
