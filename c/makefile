@@ -1,3 +1,5 @@
+NumArchivos: NumArchivos.cpp PaqueteDatagrama.o SocketDatagrama.o
+	g++ NumArchivos.cpp -o NumArchivos
 status: status.cpp PaqueteDatagrama.o SocketDatagrama.o
 	g++ status.cpp -o status
 principal: principal.cpp PaqueteDatagrama.o SocketDatagrama.o

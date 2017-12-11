@@ -13,7 +13,7 @@ int main()
   SocketDatagrama s(puerto);
   while(true){
     //Recibe una solicitud de status
-    cout << "Esperando solicitud de status..." << endl;
+    cout << "Esperando solicitud de Numero de Archivos..." << endl;
     PaqueteDatagrama p(8);
     s.recibe( p );
     char * code = (char *)p.obtieneDatos();
@@ -32,7 +32,7 @@ int main()
         }
         closedir(d);
       }
-      //printf("%d\n", k);
+      printf("%d\n", k);
     //char msg[0] = k;
     string st(p.obtieneDireccion());
     PaqueteDatagrama r((char*)&k, 8,st, p.obtienePuerto());
