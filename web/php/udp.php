@@ -19,11 +19,12 @@ if (move_uploaded_file($_FILES['fichero_usuario']['tmp_name'], $fichero_subido))
 if ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) {
   while (1) {
     socket_sendto($socket, $filename, strlen($message), 0, $server_ip, $server_port);
+    usleep(100);
     socket_sendto($socket, $message, strlen($message), 0, $server_ip, $server_port);
-    print("Mensaje enviado...\n")
+    print("Mensaje enviado...\n");
     sleep(5);
   }
 } else {
-  print("can't create socketn");
+  print("can't create socket\n");
 }
 ?>
