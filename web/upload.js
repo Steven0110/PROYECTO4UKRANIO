@@ -31,6 +31,7 @@ function search(){
 	var cad = $("#cad").val();
 	$.ajax({
 		method : "POST",
+		url : "php/Envia.php",
 		data : {
 			"cadena" : cad
 		},
