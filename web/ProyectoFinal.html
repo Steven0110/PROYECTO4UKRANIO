@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<style>
+#myProgress {
+  width: 30%;
+  background-color: #ddd;
+}
+
+#myBar {
+  width: 0%;
+  height: 25px;
+  background-color: #4CAF50;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+</style>
+<head>
+  <meta charset="utf-8">
+  <title>Desarrollo de Sistemas Distributidos</title>
+</head>
+<body>
+  <h1>Selecciona un Archivo para cargarlo</h1>
+  <form enctype="multipart/form-data" action="uploader.php" method="POST">
+    <input name="uploadedfile" type="file"/>
+    <input type="submit" value="Subir archivo"/>
+  </form>
+    <div id="myProgress">
+      <div id="myBar">0%</div>
+    </div>
+    <script>
+    function move() {
+      var elem = document.getElementById("myBar");
+      var width = 1;
+      var id = setInterval(frame, 10);
+      function frame() {
+        if (width >= 100) {
+          clearInterval(id);
+        } else {
+          width++;
+          elem.style.width = width + '%';
+          elem.innerHTML = width * 1  + '%';
+        }
+      }
+    }
+    function limpiar(){
+      var elem = document.getElementById("myBar");
+      var width = 0;
+      var id = setInterval(frame, 0);
+      clearInterval(id);
+    }
+    </script>
+  <h2>Cadena a buscar</h2>
+  <input type="text">
+  <button>Buscar</button>
+</body>
+</html>
