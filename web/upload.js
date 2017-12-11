@@ -1,8 +1,10 @@
 $(document).ready(function(){
 	$("#submit").click( upload );
+	$("#search").click( search );
 	$("#myBar").progressbar({
       value: 37
     });
+
 });
 function upload(){
 	var formData = new FormData();
@@ -23,5 +25,23 @@ function upload(){
     			console.log("NOT OK");
     		}
     	}
+	});
+}
+function search(){
+	var cad = $("#cad").val();
+	$.ajax({
+		method : "POST",
+		data : {
+			"cadena" : cad
+		},
+		success : function( response ){
+    		console.log( response );
+    		var json = JSON.parse( response );
+    		if( json.status == "1" ){
+    			console.log("OK");
+    		}else if( json.staus == "-1"){
+    			console.log("NOT OK");
+    		}
+		}
 	});
 }
