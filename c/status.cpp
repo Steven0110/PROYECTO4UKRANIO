@@ -20,7 +20,7 @@ int main()
     char * code = (char *)p.obtieneDatos();
     if( code[ 0 ] == '2'){
       //Responde que está activa
-      char msg[] = "asdas";
+      char msg[] = "Estoy vivo!";
       string st(p.obtieneDireccion());
       PaqueteDatagrama r(msg, strlen(msg),st, p.obtienePuerto());
       s.envia( r );

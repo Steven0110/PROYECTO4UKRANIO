@@ -13,19 +13,22 @@ $server_laura   = [
   "ip" => "192.168.43.232",
   "status" => 0,
   "min" => 0,
-  "max" => 0
+  "max" => 0,
+  "name" => "Laura"
 ];
 $server_brian   = [
   "ip" => "192.168.43.206",
   "status" => 0,
   "min" => 0,
-  "max" => 0
+  "max" => 0,
+  "name" => "Brian"
 ];
 $server_steven   = [
   "ip" => "192.168.43.107",
   "status" => 0,
   "min" => 0,
-  "max" => 0
+  "max" => 0,
+  "name" => "Steven"
 ];
 $servers = [
   $server_laura, $server_brian, $server_steven
@@ -50,6 +53,7 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
       $server["status"] = 0;
     }else{
       $pc_no++;
+
       $server["status"] = 1;
     }
     var_dump($server);
