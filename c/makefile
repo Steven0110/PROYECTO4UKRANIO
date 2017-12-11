@@ -1,3 +1,5 @@
+status: status.cpp PaqueteDatagrama.o SocketDatagrama.o
+	g++ status.cpp -o status
 principal: principal.cpp PaqueteDatagrama.o SocketDatagrama.o
 	g++ principal.cpp -o principal
 SocketDatagrama.o: SocketDatagrama.cpp SocketDatagrama.h
