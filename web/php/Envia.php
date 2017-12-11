@@ -31,7 +31,7 @@ $server_steven   = [
   "name" => "Steven"
 ];
 $servers = [
-  $server_laura, $server_brian, $server_steven
+  $server_steven, $server_brian, $server_laura
 ];
 
 $server_port = 7201;
@@ -67,8 +67,8 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
     //Recibe su respuesta
     if(socket_recv ( $socket , $reply , 1 , MSG_WAITALL ) === FALSE){
     }else{
-      var_dump( $reply );
       $files = intval($reply);
+      break;
     }
   }
   echo "Hay ".$files." archivos\n";
@@ -80,6 +80,7 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
       $server["min"]  = $count * $files_per_pc;
       $server["max"]  = $count * $files_per_pc + $files_per_pc - 1;
       $count++;
+      echo "A ".$server["name"]." le toca de $min a $max\n";
     }
   }
   //Le envía sus rangos a cada server activo y la palabra - SERVICIO EN EL PUERTO 7201
