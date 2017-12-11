@@ -69,11 +69,13 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
   }
 
   //Define los rangos que le tocan a cada computadora
+  $count = 0;
   $files_per_pc = floor( $files / $pc_no );
   foreach( $servers as $server ){
     if($server["status"]  == 1 ){
       $server["min"]  = $count * $files_per_pc;
       $server["max"]  = $count * $files_per_pc + $files_per_pc - 1;
+      $count++;
     }
   }
   //Le envía sus rangos a cada server activo y la palabra - SERVICIO EN EL PUERTO 7201
