@@ -1,0 +1,28 @@
+#ifndef PAQUETEDATAGRAMA_H_
+#define PAQUETEDATAGRAMA_H_
+
+#include <string>
+using namespace std;
+
+
+class PaqueteDatagrama
+{
+  public:
+    PaqueteDatagrama(char *, unsigned int,string, int );
+    PaqueteDatagrama(unsigned int );
+    ~PaqueteDatagrama();
+    char *obtieneDireccion();
+    unsigned int obtieneLongitud();
+    int obtienePuerto();
+    char *obtieneDatos();
+    void inicializaPuerto(int);
+    void inicializaIp(string);
+    void inicializaDatos(char *);
+  private:
+    char *datos; //Almacena los datos
+    char ip[16]; //Almacena la IP
+    unsigned int longitud; //Almacena la longitude de la cadena de datos
+    int puerto; //Almacena el puerto
+};
+
+#endif
