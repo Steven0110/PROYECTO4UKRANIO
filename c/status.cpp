@@ -4,6 +4,10 @@
 #include <iostream>
 #include <fstream>
 using namespace std;  
+/**
+*
+* SERVIDOR QUE RESPONDE LO QUE SEA SI ESTÁ ACTIVO.
+*/
 int main()
 {
   int puerto = 7202;
@@ -16,10 +20,10 @@ int main()
     char * code = (char *)p.obtieneDatos();
     if( code[ 0 ] == '2'){
       //Responde que está activa
-    char msg[] = "asdas";
-    string st(p.obtieneDireccion());
-    PaqueteDatagrama r(msg, strlen(msg),st, p.obtienePuerto());
-    s.envia( r );
+      char msg[] = "asdas";
+      string st(p.obtieneDireccion());
+      PaqueteDatagrama r(msg, strlen(msg),st, p.obtienePuerto());
+      s.envia( r );
     }else continue;
   }
 }

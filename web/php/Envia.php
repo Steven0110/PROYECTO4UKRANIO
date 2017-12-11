@@ -11,19 +11,19 @@ $palabra = "Hola";
 $MAX_UDP = 1024;
 $server_laura   = [
   "ip" => "192.168.43.232",
-  "status" => 1,
+  "status" => 0,
   "min" => 0,
   "max" => 0
 ];
 $server_brian   = [
   "ip" => "192.168.43.206",
-  "status" => 1,
+  "status" => 0,
   "min" => 0,
   "max" => 0
 ];
 $server_steven   = [
   "ip" => "192.168.43.107",
-  "status" => 1,
+  "status" => 0,
   "min" => 0,
   "max" => 0
 ];
@@ -35,7 +35,7 @@ $server_port = 7201;
 $beat_period = 5;
 $micro_beat_period = 100;
 if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
-  echo "{ \"status\" : \"-1\"}";
+  echo "{ \"status\" : \"-1 \"}";
   exit(-1);
 }else{
       //Obtiene las PCs que están activas - SERVICIO EN EL PUERTO 7202
@@ -43,7 +43,6 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
   $pc_no = 0;
   socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array("sec"=>2,"usec"=>0));
   foreach( $servers as $server ){
-    var_dump($server);
     //Pregunta a cada servidor si está encendido:
     socket_sendto($socket, $code, strlen($code), 0, $server["ip"], 7202);
     //Recibe su respuesta
@@ -53,6 +52,7 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
       $pc_no++;
       $server["status"] = 1;
     }
+    var_dump($server);
   }
 
     //Pregunta por la cantidad total de archivos server por server hasta que uno le responda
