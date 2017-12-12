@@ -1,6 +1,6 @@
 <?php
-$palabra = "aola";
-//$palabra = $_POST['cadena'];
+//$palabra = "hola";
+$palabra = $_POST['cadena'];
 
 
 //$dir_subida = $dir_subida . basename($_FILES['uploadfile']['name']);
@@ -100,17 +100,16 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
       usleep($micro_beat_period);
       socket_sendto($socket, $palabra, strlen($palabra), 0, $server["ip"], $server_port);
       usleep($micro_beat_period);
-      echo "A ".$server["name"]." le tocó de $min a $max<br/>";
+      echo "A ".$server["name"]." le tocó de $min a $max\n";
     }
   }
   //Espera hasta recibir la respuesta de los servers
-  foreach($servers as $server){
-    if($server["status"]  == 1 ){
+  while( 1 ){
       if(socket_recv ( $socket , $reply , 1024 , MSG_WAITALL ) === FALSE){
+        exit(1);
       }else{
-        echo $reply."<br/>";
+        echo $reply." \n";
       }
-    }
   }
 }
 ?>

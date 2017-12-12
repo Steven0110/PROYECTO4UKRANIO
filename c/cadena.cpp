@@ -58,6 +58,7 @@ int main(void){
         char * aux = (char *)p3.obtieneDatos();
         cout << "Data: " << aux << endl ;
         cout << aux[ 0 ];
+        char l = aux[ 0 ];
 
 
                 DIR *d;
@@ -78,15 +79,14 @@ int main(void){
                                 FILE *file;
                                 file = fopen( sx.c_str() , "r");
                                 int aux_cont = 0;
-                                int total_coinc = 0;
                                 if (file) {
+                                    int total_coinc = 0;
                                     while ((c = getc(file)) != EOF){
                                         //putchar(c);
-                                        if( c == aux[ 0 ] ){
+                                        //printf("%c", c);
+                                        if( c == l ){
                                             total_coinc++;
-                                            cout << "Coincidencia" << endl;
-                                            printf("%c", c);
-                                            printf("%c", aux[0]);
+                                            //cout << "Coincidencia"<<endl;
                                         }
                                     }
                                     string res = "Se encontraron ";
@@ -96,7 +96,7 @@ int main(void){
                                     res += k;
                                     res += " coincidencias en ";
                                     res += sx;
-                                    cout << res << endl;
+                                    //cout << res << endl;
                                     //Envía el dataggrama con res
 
                                       char *y = new char[res.length() + 1];

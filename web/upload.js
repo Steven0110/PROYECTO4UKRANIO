@@ -37,7 +37,7 @@ function search(){
 		},
 		success : function( response ){
     		console.log( response );
-    		$("#caja").text( response );
+    		$("#caja").val( response );
 		}
 	});
 }
