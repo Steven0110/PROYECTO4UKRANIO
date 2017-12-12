@@ -37,12 +37,7 @@ function search(){
 		},
 		success : function( response ){
     		console.log( response );
-    		var json = JSON.parse( response );
-    		if( json.status == "1" ){
-    			console.log("OK");
-    		}else if( json.staus == "-1"){
-    			console.log("NOT OK");
-    		}
+    		$("#caja").text( response );
 		}
 	});
 }

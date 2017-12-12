@@ -1,5 +1,5 @@
 <?php
-$palabra = "Hola";
+$palabra = "aola";
 //$palabra = $_POST['cadena'];
 
 
@@ -55,7 +55,7 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
     }else{
       $pc_no++;
       $servers[$i]["status"] = 1;
-      echo "Respondió ".$server["name"]."\n";
+      //echo "Respondió ".$server["name"]."\n";
     }
     $i++;
   }
@@ -70,12 +70,11 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
     //Recibe su respuesta
     if(socket_recv ( $socket , $reply , 2 , MSG_WAITALL ) === FALSE){
     }else{
-      var_dump($reply);
       $files = intval($reply);
       break;
     }
   }
-  echo "Hay ".$files." archivos\n";
+  //echo "Hay ".$files." archivos\n";
   //Define los rangos que le tocan a cada computadora
   $count = 0;
   $files_per_pc = floor( $files / $pc_no );
@@ -90,7 +89,7 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
   }
   //Le envía sus rangos a cada server activo y la palabra - SERVICIO EN EL PUERTO 7201
   $i = 0;
-  var_dump($servers);
+  //var_dump($servers);
   foreach($servers as $server ){
     if($server["status"] == 1 ){
       $min = "".$server["min"] ;
@@ -101,7 +100,7 @@ if ( ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) == false ) {
       usleep($micro_beat_period);
       socket_sendto($socket, $palabra, strlen($palabra), 0, $server["ip"], $server_port);
       usleep($micro_beat_period);
-      echo "A ".$server["name"]." le tocó de $min a $max\n";
+      echo "A ".$server["name"]." le tocó de $min a $max<br/>";
     }
   }
   //Espera hasta recibir la respuesta de los servers
